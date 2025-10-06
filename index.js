@@ -12,7 +12,7 @@ app.use(
     secure: true,
     onProxyReq: (proxyReq, req, res) => {
       // Authorization header ekle
-      proxyReq.setHeader('Authorization', 'Bearer aaaaaa22-40cf-4828-bd4c-98867cc65fd8');
+      proxyReq.setHeader('Authorization', 'Bearer aaaaaac4-335d-4737-a747-6697dcac9e56');
     }
   })
 );
