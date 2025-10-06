@@ -13,6 +13,9 @@ app.use(
     onProxyReq: (proxyReq, req, res) => {
       // Authorization header ekle
       proxyReq.setHeader('Authorization', 'Bearer aaaaaa22-40cf-4828-bd4c-98867cc65fd8');
+      proxyReq.setHeader('Host', 'cbsapi.ibb.gov.tr');
+      proxyReq.setHeader('Origin', 'https://3bistanbul.ibb.gov.tr');
+       proxyReq.setHeader('referer', 'https://3bistanbul.ibb.gov.tr/');
     }
   })
 );
