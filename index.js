@@ -1,29 +1,22 @@
-import express from 'express';
-import { createProxyMiddleware } from 'http-proxy-middleware';
-import cors from 'cors';
-import dotenv from 'dotenv';
-
-dotenv.config();
+const express = require('express');
+const { createProxyMiddleware } = require('http-proxy-middleware');
 
 const app = express();
-app.use(cors());
+const PORT = process.env.PORT || 3000;
 
-// Proxy route: /proxy/* -> gerçek SceneLayer sunucusu
-app.use('/proxy', createProxyMiddleware({
-  target: 'https://cbsapi.ibb.gov.tr', // gerçek ArcGIS sunucusu
-  changeOrigin: true,
-  secure: true,
-  pathRewrite: (path, req) => {
-    // /proxy/GW/server-Blok_57/SceneServer -> /GW/server-Blok_57/SceneServer
-    return path.replace(/^\/proxy/, '');
-  },
-  onProxyReq: (proxyReq, req, res) => {
-    // Authorization header ekle
-    proxyReq.setHeader('Authorization', `Bearer ${process.env.BEARER_TOKEN}`);
-  }
-}));
+app.use(
+  '/',
+  createProxyMiddleware({
+    target: 'https://cbsapi.ibb.gov.tr',
+    changeOrigin: true,
+    secure: true,
+    onProxyReq: (proxyReq, req, res) => {
+      // Authorization header ekle
+      proxyReq.setHeader('Authorization', 'Bearer aaaaaa22-40cf-4828-bd4c-98867cc65fd8');
+    }
+  })
+);
 
-const port = process.env.PORT || 10000;
-app.listen(port, () => {
-  console.log(`Proxy server running on port ${port}`);
+app.listen(PORT, () => {
+  console.log(`Proxy server running on port ${PORT}`);
 });
